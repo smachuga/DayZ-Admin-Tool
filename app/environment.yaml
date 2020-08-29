@@ -1,0 +1,9 @@
+name: dayz
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  - enaml
+  - atom
+  - pyqt

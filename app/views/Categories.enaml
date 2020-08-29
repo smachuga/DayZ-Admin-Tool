@@ -1,0 +1,35 @@
+from enaml.core.api import Looper
+from enaml.widgets.api import Window, Container, Label, PushButton, Form, Field, GroupBox
+from functools import reduce
+from views.Category import CategoryModel, CategoryView
+from api.CategoryService import CategoryService
+
+def handleOnChanged(looper):
+    print(any(x.checked for x in values))
+
+enamldef CategoriesView(Container):
+    attr categories = map(lambda x: CategoryModel(value=x), CategoryService.list())
+    attr selectedValues = ()
+    attr saveFunc = lambda _ : print('TODO: Implement Save')
+
+    Container:
+        GroupBox:
+            title = 'Categories'
+            Looper:
+                iterable << categories
+                CategoryView:
+                    model = loop.item
+                    onChange = handleOnChanged 
+            PushButton:                    
+                text = 'Delete'
+                clicked :: print('TODO: Implement')
+        GroupBox:
+            title = 'New Category'
+            Form:
+                Label:
+                    text = 'Name'
+                Field:
+                    pass
+                PushButton:
+                    text = '&Create'
+                    clicked :: saveFunc()

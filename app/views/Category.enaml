@@ -1,0 +1,16 @@
+from enaml.widgets.api import Window, Container, CheckBox
+from atom.api import Atom, Str, Bool
+
+class CategoryModel(Atom):
+    value = Str()
+    checked = Bool(False)
+
+enamldef CategoryView(Container):
+    attr model: CategoryModel = CategoryModel()
+    attr onChange = lambda _: null
+
+    CheckBox: cb:
+        text := model.value
+        checked := model.checked
+        toggled :: 
+            onChange() 
